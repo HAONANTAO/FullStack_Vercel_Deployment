@@ -9,7 +9,9 @@ function App() {
   useEffect(() => {
     // 使用后端的完整 URL 发起请求
     axios
-      .get("https://api-acs491u0z-haonantaos-projects.vercel.app/api/hello")
+      .get("/api/hello", {
+        withCredentials: true, // 如果请求需要携带凭证（cookies）
+      })
       .then((response) => {
         setMessage(response.data.message);
         setIsLoading(false);

@@ -3,8 +3,7 @@ import cors from "cors";
 
 const app = express();
 
-// 更详细的 CORS 配置
-
+// 允许所有来源的 CORS 配置
 const corsOptions = {
   origin: "*", // 允许来自任何源的请求
   methods: ["GET", "POST", "PUT", "DELETE"], // 允许的 HTTP 方法
