@@ -1,40 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [message, setMessage] = useState("Click the button to fetch a message");
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // 定义一个异步函数来获取数据
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("/api/hello");
-      setMessage(response.data.message);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  useEffect(() => {
+    // 使用后端的完整 URL 发起请求
+    axios
+      .get("https://api-acs491u0z-haonantaos-projects.vercel.app/api/hello")
+      .then((response) => {
+        setMessage(response.data.message);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setIsLoading(false);
+      });
+  }, []);
 
-  // 定义一个异步函数来发送数据
-  const sendData = async () => {
-    try {
-      const data = { key: "value" }; // 要发送的数据
-      const response = await axios.post("/api/hello", data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error sending data:", error);
-    }
-  };
+  if (isLoading) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <p>Error: {error.message}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Simple Fullstack Vercel Project</h1>
-        <p>{message}</p>
-        {/* 创建一个按钮并绑定点击事件以获取数据 */}
-        <button onClick={fetchData}>Fetch Message</button>
-        {/* 创建一个按钮并绑定点击事件以发送数据 */}
-        <button onClick={sendData}>Send Data</button>
-      </header>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Frontend and Backend Connected!</h1>
+      <p>{message}</p>
     </div>
   );
 }

@@ -4,9 +4,14 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "dev": "vite"
+   
+  },
+  "vite": {
+    "build": {
+      "outDir": "dist"
+    }
   },
   "dependencies": {
     "axios": "^1.7.9",
