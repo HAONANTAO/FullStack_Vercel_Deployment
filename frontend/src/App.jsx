@@ -1,28 +1,26 @@
-// frontend/src/App.jsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("Click the button to fetch a message");
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get("/api/hello");
-        setMessage(response.data.message);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+  // 定义一个异步函数来获取数据
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/api/hello");
+      setMessage(response.data.message);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-
-    fetchData();
-  }, []);
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Simple Fullstack Vercel Project</h1>
         <p>{message}</p>
+        {/* 创建一个按钮并绑定点击事件 */}
+        <button onClick={fetchData}>Fetch Message</button>
       </header>
     </div>
   );

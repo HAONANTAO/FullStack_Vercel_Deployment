@@ -1,1 +1,5 @@
 .vercel
+# .gitignore
+node_modules
+frontend/node_modules
+# ... 其他忽略规则 ...
